@@ -50,6 +50,7 @@ class _LoginPageState extends State<LoginPage> {
               controller: _emailController,
               decoration: const InputDecoration(labelText: "Email"),
             ),
+            
             const SizedBox(height: 16),
             TextField(
               controller: _passwordController,
@@ -61,6 +62,7 @@ class _LoginPageState extends State<LoginPage> {
               onPressed: _login,
               child: const Text("Login"),
             ),
+            
           ],
         ),
       ),
