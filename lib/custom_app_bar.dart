@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'my_booking_page.dart';
-import 'profile_page.dart';
-import 'settings_page.dart';
+import '../my_booking_page.dart';
+import '../profile_page.dart';
+import '../settings_page.dart';
+import '../notification_page.dart'; // make sure this file exists
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -13,24 +14,45 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       title: Text(title),
       leading: PopupMenuButton<String>(
-        icon: const Icon(Icons.menu), // small button on left
+        icon: const Icon(Icons.menu),
         onSelected: (value) {
           switch (value) {
             case 'my_booking':
-              Navigator.push(context, MaterialPageRoute(builder: (_) => const MyBookingPage()));
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const MyBookingPage()),
+              );
               break;
+
+            case 'notifications': // 👈 new case added
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const NotificationPage()),
+              );
+              break;
+
             case 'profile':
-              Navigator.push(context, MaterialPageRoute(builder: (_) => const ProfilePage()));
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const ProfilePage()),
+              );
               break;
+
             case 'settings':
-              Navigator.push(context, MaterialPageRoute(builder: (_) => const SettingsPage()));
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const SettingsPage()),
+              );
               break;
           }
         },
-        itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-          const PopupMenuItem<String>(value: 'my_booking', child: Text('My Booking')),
-          const PopupMenuItem<String>(value: 'profile', child: Text('Profile')),
-          const PopupMenuItem<String>(value: 'settings', child: Text('Settings')),
+
+        // 👇 Updated menu list
+        itemBuilder: (context) => const [
+          PopupMenuItem(value: 'my_booking', child: Text('My Booking')),
+          PopupMenuItem(value: 'notifications', child: Text('Notifications')), // 👈 Added here
+          PopupMenuItem(value: 'profile', child: Text('Profile')),
+          PopupMenuItem(value: 'settings', child: Text('Settings')),
         ],
       ),
     );
