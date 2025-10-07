@@ -1,0 +1,9 @@
+[
+  {
+    "id": 1,
+    "from": "merchant",
+    "to": "customer",
+    "message": "Welcome! Your booking was received.",
+    "timestamp": "2025-10-07T12:00:00Z"
+  }
+]
