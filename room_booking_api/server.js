@@ -10,3 +10,6 @@ app.use("/api/notifications", notificationsRouter);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
+app.get("/", (req, res) => {
+  res.send("🚀 Room Booking API is running! Use /api/notifications to access notifications.");
+});
