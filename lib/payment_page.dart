@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'success_page.dart';
+import 'notification_service.dart';
 
 class PaymentPage extends StatefulWidget {
   final String roomName;
@@ -14,8 +15,18 @@ class PaymentPage extends StatefulWidget {
 class _PaymentPageState extends State<PaymentPage> {
   String _selectedMethod = "Card";
 
-  void _confirmPayment() {
-    // Here you would add actual payment API logic
+  void _confirmPayment() async {
+  final notificationService = NotificationService();
+
+  try {
+    // Send notification to merchant and customer
+    await notificationService.sendNotification(
+      'customer', // sender
+      'merchant', // receiver
+      'A new booking has been made for ${widget.roomName} via $_selectedMethod payment.',
+    );
+
+    // Navigate to success page after notification is sent
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
@@ -26,7 +37,13 @@ class _PaymentPageState extends State<PaymentPage> {
         ),
       ),
     );
+  } catch (e) {
+    // handle API error
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Payment confirmed, but failed to send notification.')),
+    );
   }
+}
 
   @override
   Widget build(BuildContext context) {
